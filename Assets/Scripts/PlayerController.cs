@@ -2,6 +2,10 @@
 
 public class PlayerController : MonoBehaviour
 {
+    public int walkSpeed = 1;
+    bool isFacingRight;
+    
+
     [SerializeField] private new Rigidbody2D rigidbody;
 
     [Header("Settings")]
@@ -10,9 +14,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance;
     [SerializeField] private LayerMask groundLayerMask;
 
+   
     private void Update()
     {
+        float veloxityX = Input.GetAxisRaw("Horizontal");
+        
 
+            
 
         if (Input.GetButtonDown("Jump"))
         {
