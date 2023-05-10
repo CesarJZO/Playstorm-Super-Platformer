@@ -3,8 +3,17 @@
 public class PlayerController : MonoBehaviour
 {
     public int walkSpeed = 1;
-    bool isFacingRight;
-    
+    bool isFacingRight = true;
+    float velocityX;
+    public Animator animator;
+    bool isJumping;
+
+    bool Grounded => Physics2D.Raycast(
+            origin: transform.position,
+            direction: Vector2.down,
+            distance: groundDistance,
+            layerMask: groundLayerMask
+        );
 
     [SerializeField] private new Rigidbody2D rigidbody;
 
@@ -17,29 +26,30 @@ public class PlayerController : MonoBehaviour
    
     private void Update()
     {
-        float veloxityX = Input.GetAxisRaw("Horizontal");
+         velocityX = Input.GetAxisRaw("Horizontal");
         
-
-            
-
+        if(velocityX < 0 && isFacingRight == true)
+        {          
+            Turn();
+        }else if(velocityX > 0 && isFacingRight == false)
+        {
+            Turn();
+        }
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+            isJumping = true;
         }
     }
 
     private void Jump()
     {
-        bool grounded = Physics2D.Raycast(
-            origin: transform.position,
-            direction: Vector2.down,
-            distance: groundDistance,
-            layerMask: groundLayerMask
-        );
+        
 
-        if (grounded == true)
+        if (Grounded == true)
         {
             rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
         }
     }
 
@@ -47,5 +57,22 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundDistance);
+    }
+    private void FixedUpdate()
+    {
+        rigidbody.velocity = new Vector2(velocityX * walkSpeed, rigidbody.velocity.y);
+        print(velocityX);
+    }
+    private void LateUpdate()
+    {
+        animator.SetFloat("Speed",Mathf.Abs(velocityX));
+        animator.SetBool("IsGrounded", Grounded);
+        animator.SetFloat("VelocityY", rigidbody.velocity.y);
+        
+    }
+    private void Turn()
+    {
+        transform.localScale = new Vector3(transform.localScale.x*-1, 1,0);
+        isFacingRight = !isFacingRight;
     }
 }
