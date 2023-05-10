@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
@@ -20,20 +22,20 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        var grounded = Physics2D.Raycast(
+        bool grounded = Physics2D.Raycast(
             origin: transform.position,
             direction: Vector2.down,
             distance: groundDistance,
             layerMask: groundLayerMask
         );
 
-        if (grounded)
+        if (grounded == true)
         {
-            rigidbody.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundDistance);
