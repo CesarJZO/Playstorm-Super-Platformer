@@ -34,3 +34,10 @@ Las animaciones se están guardadas en la carpeta de [Animations](./Assets/Anima
 ## Escenas
 
 Los niveles, menús y elementos que forman el juego se organizan en escenas. Están en [Scenes](./Assets/Scenes/).
+
+## Recursos extra
+
+- [Paquete con animaciones](./Resources/PlaystormResources.unitypackage) Nuestros recursos con animaciones y sprites.
+- [Unity Manual](https://docs.unity3d.com/Manual/index.html) El manual oficial de Unity.
+- [Unity Scripting API](https://docs.unity3d.com/ScriptReference/index.html) Donde está toda la documentación de las clases y funciones de Unity.
+- [Unity Learn](https://learn.unity.com/) Cursos y tutoriales hechos por Unity.
