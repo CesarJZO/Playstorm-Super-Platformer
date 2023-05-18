@@ -472,9 +472,8 @@ MonoBehaviour:
   walkSpeed: 4
   animator: {fileID: 1920517021}
   rigidbody: {fileID: 1453661728}
-  speed: 0
   jumpForce: 16
-  groundDistance: 0.39
+  groundSensorRadius: 0.1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
